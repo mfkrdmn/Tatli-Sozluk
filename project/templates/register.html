@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="col-lg-6 p-5 ">
+    <div class="row">
+        <form class="" action="/action_page.php" method="post">        
+            <div class="col-lg-12">
+                <h4>yeni kullanıcı kaydı</h4>
+                <div class="row mt-5">
+                    <div class="col-lg-12">
+                        <label for="uname"><b>nick</b></label> <br>
+                        <input type="text" name="uname" required>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <label for="uname"><b>e-mail adresi</b></label> <br>
+                        <input type="text" name="uname" required>
+                    </div>
+                </div>
+           
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <label for="psw"><b>şifre</b></label> <br>
+                        <input type="password" name="psw" required>
+                    </div>
+                </div>
+             
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <label for="psw"><b>şifre tekrar</b></label> <br>
+                        <input type="password" name="psw" required>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-lg-12">
+                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                        <label for="vehicle1"><a href="{% url 'contract' %}">Tatlı sözlük sözleşmesi </a> 'ni okudum onaylıyorum</label><br>
+                    </div>
+                </div>
+
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <button class="btn" type="submit">Login</button>
+                </div>
+            </div>
+          
+            </div>
+
+          </form>
+        
+    </div>
+</div>
+
+
+
+{% endblock %}
