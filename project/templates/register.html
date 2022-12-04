@@ -6,46 +6,64 @@
 
 <div class="col-lg-6 p-5 ">
     <div class="row">
-        <form class="" action="/action_page.php" method="post">        
+        <form class="" action="{% url 'register' %}" method="post">       
+            {% csrf_token %} 
             <div class="col-lg-12">
                 <h4>yeni kullanıcı kaydı</h4>
                 <div class="row mt-5">
                     <div class="col-lg-12">
-                        <label for="uname"><b>nick</b></label> <br>
-                        <input type="text" name="uname" required>
+                        <label for="uname"><b>kullanıcı adın</b></label><br>{{form.username}}
+                       
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-lg-12">
-                        <label for="uname"><b>e-mail adresi</b></label> <br>
-                        <input type="text" name="uname" required>
+                        <label for="uname"><b>e-mail adresi</b></label><br>{{form.email}} 
+              
                     </div>
                 </div>
            
                 <div class="row mt-4">
                     <div class="col-lg-12">
-                        <label for="psw"><b>şifre</b></label> <br>
-                        <input type="password" name="psw" required>
+                        <label for="psw"><b>şifre</b></label><br>{{form.password}} 
+                    
                     </div>
                 </div>
              
                 <div class="row mt-4">
                     <div class="col-lg-12">
-                        <label for="psw"><b>şifre tekrar</b></label> <br>
-                        <input type="password" name="psw" required>
+                        <label for="psw"><b>şifre tekrar</b></label><br>{{form.confirm_password}} 
+                   
                     </div>
                 </div>
 
                 <div class="row mt-4">
                     <div class="col-lg-12">
-                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" required>
                         <label for="vehicle1"><a href="{% url 'contract' %}">Tatlı sözlük sözleşmesi </a> 'ni okudum onaylıyorum</label><br>
                     </div>
                 </div>
 
+                <ul class="errorlist">
+                    {% for field in form %}
+
+                        {% if field.errors %}
+                            {% for error in field.errors  %}
+
+                                <li style="color: red; list-style: none;">{{error}}</li>
+                            
+                            {% endfor %}
+                        {% endif %}
+                    
+                    {% endfor %}
+                    <li style="color: red; list-style: none;">{{form.non_field_errors}}</li>
+
+                           
+                </ul>
+
             <div class="row mt-4">
                 <div class="col-lg-6">
-                    <button class="btn" type="submit">Login</button>
+                    <input type="submit" value="Kaydol">
                 </div>
             </div>
           

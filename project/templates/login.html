@@ -6,26 +6,27 @@
 
 <div class="col-lg-6 p-5 ">
     <div class="row">
-        <form class="" action="/action_page.php" method="post">        
+        <form class="" action="{% url 'login' %}" method="post" enctype="multipart/form-data">   
+            {% csrf_token %}     
             <div class="col-lg-12">
                 <h4>giriş</h4>
                 <div class="row mt-5">
                     <div class="col-lg-12">
                         <label for="uname"><b>e-mail adresi</b></label> <br>
-                        <input type="text" name="uname" required>
+                        <input name="email" type="text" name="uname" required>
                     </div>
                 </div>
            
                 <div class="row mt-4">
                     <div class="col-lg-12">
                         <label for="psw"><b>şifre</b></label> <br>
-                        <input type="password" name="psw" required>
+                        <input name="password" type="password" name="psw" required>
                     </div>
                 </div>
              
             <div class="row mt-4">
                 <div class="col-lg-6">
-                    <button class="btn" type="submit">Login</button>
+                    <input type="submit" value="Giriş yap">
                 </div>
             </div>
           
