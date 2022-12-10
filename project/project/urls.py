@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('homepage.urls')),
     path('', include('user.urls')),
     path('projectflow', views.project_flow, name='projectflow'),
+    path('', include('entry.urls')),
 
 ]
