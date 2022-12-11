@@ -35,7 +35,8 @@
             </div>
             <div class="col-5">
                 <div class="search">
-                    <form action="{% url 'search' %}" method="GET">
+                    <form action="{% url 'search' %}" method="POST">
+                        {% csrf_token %}
                         <input type="text" class="form-control" name="searched_entry" placeholder="Sor hadi">
                         <button type="submit" value="Submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                     </form>
@@ -148,53 +149,17 @@
             </div>
             <div class="col-lg-12 mt-2">
                 <ul class='p-0 ul_left'>
-                    <a href="" class="li_a">
+
+                        {% for i in entries %}
                         <li class="li">
-                           test
+                          
+                            <a href="{% url 'entry_detail' i.entry_name %}" >
+                            {{i.entry_name}}
+                            </a>
+                       
                         </li>
-                        <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                         <li class="li">
-                            test
-                         </li>
-                    </a>
+                        {% endfor %}
+
                 </ul>
             </div>
         </div>

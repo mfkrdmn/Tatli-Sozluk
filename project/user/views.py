@@ -1,10 +1,16 @@
 from django.shortcuts import render,redirect
 from .forms import *
 from django.contrib import messages, auth
+from entry.models import *
 # Create your views here.
 
 def user_page(request):
-    return render(request, 'user_page.html')
+    entries = Entry.objects.all()
+
+    context = {
+        'entries' : entries
+    }
+    return render(request, 'user_page.html', context)
 
 
 ############
