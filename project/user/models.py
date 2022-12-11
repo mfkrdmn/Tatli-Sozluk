@@ -76,4 +76,4 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-    #here we are using django signals to create upserprofile automatically after having a user
+    

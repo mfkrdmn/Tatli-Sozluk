@@ -18,3 +18,6 @@ class EntryComments(models.Model):
     commented_entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
     likes_to_the_comment = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return str(self.commented_entry)

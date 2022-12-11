@@ -12,7 +12,7 @@
         {% for i in bring_entry_info %}
 
             <div class="col-lg-12">
-                <a href="{% url 'entry_detail' i.entry_name %}" >
+                <a href="{% url 'entry_detail' i.id %}" >
                     <b style="color:black ;">  {{i.entry_name}}</b>  
                 </a>
             </div>
@@ -20,6 +20,34 @@
             <div class="col-lg-12">
                 {{i.created_at}}
             </div>
+
+            <div class="col-lg-12 mt-3">
+                {% for a in entry_comment %}
+                <div class="col-lg-12 mt-4">
+                    {{a.comment_body}}
+                </div>
+                   <div class="row justify-content-between"> 
+                        <div class="col-lg-3 my-auto">
+                            <i class="fa-solid fa-cookie-bite" id="logo" style="font-size:15px ;"></i>
+                            {{a.likes_to_the_comment}}
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="row justify-content-end">
+                                <div class="col-lg-6">
+                                    <div class="col-lg-12">
+                                        {{a.commented_entry.user.username}}
+                                    </div>
+                                    <div class="col-lg-12">
+                                       <small style="font-size: 9px;">{{a.created_at}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}    
+            </div>
+
+
 
         {% endfor %}
    
