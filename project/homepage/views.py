@@ -3,10 +3,10 @@ from entry.models import *
 # Create your views here.
 
 def home(request):
-    entries = Entry.objects.all()
+    all_entries = Entry.objects.all()
 
     context = {
-        'entries' : entries
+        'all_entries' : all_entries
     }
     return render(request, 'home.html', context)
 
