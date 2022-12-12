@@ -16,7 +16,7 @@ class Entry(models.Model):
 class EntryComments(models.Model):
     comment_body =  models.CharField(max_length=85, blank=True, null=True)
     commented_entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
-    likes_to_the_comment = models.PositiveIntegerField()
+    likes_to_the_comment = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

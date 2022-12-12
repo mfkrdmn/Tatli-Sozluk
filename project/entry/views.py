@@ -1,5 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from .models import *
+
 # Create your views here.
 
 def entry_page(request):
@@ -11,6 +12,14 @@ def entry_page(request):
 
         entry_comment = EntryComments.objects.filter(commented_entry__entry_name=searched_entry).order_by('-created_at')
         all_entries = Entry.objects.all()
+
+        if not entry_found:
+
+            entry_name = searched_entry
+
+            new_entry = Entry.objects.create(entry_name=entry_name, user=request.user)
+            new_entry.save()
+
         context = {
             "entry_found" :  entry_found,
             'searched_entry' : searched_entry,
@@ -57,6 +66,15 @@ def entry_detail(request, pk):
     bring_entry_info = Entry.objects.filter(entry_name=pk)
 
     entry_comment = EntryComments.objects.filter(commented_entry__entry_name=pk).order_by('-created_at')
+
+    
+    if request.method == "POST":
+        comment_body = request.POST['comment_body']
+
+        new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
+        new_comment.save()
+
+ 
 
     context = {
         'entry_detail' : entry_detail,
