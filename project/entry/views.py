@@ -14,11 +14,16 @@ def entry_page(request):
         all_entries = Entry.objects.all()
 
         if not entry_found:
-
+            
             entry_name = searched_entry
 
             new_entry = Entry.objects.create(entry_name=entry_name, user=request.user)
             new_entry.save()
+
+            # comment_body = request.POST['comment_body']
+
+            # new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
+            # new_comment.save()
 
         context = {
             "entry_found" :  entry_found,
@@ -39,23 +44,8 @@ def entry_page(request):
         return render(request, "entry_page.html", context)
 
 
-############
-
-
-def search(request):
-
-    all_entries = Entry.objects.all()
-   
-    context = {
-
-        "all_entries" :  all_entries,
-    }
-    
-    return render(request, "entry_page.html", context)
-
 
 ############
-
 
 def entry_detail(request, pk):
 
