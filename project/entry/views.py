@@ -1,11 +1,12 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 
 # Create your views here.
 
 def entry_page(request):
-    
-    if request.method == 'POST':
+
+    if 'search_entry_again' in request.POST:
+        
         searched_entry = request.POST['searched_entry']
 
         entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
@@ -13,36 +14,36 @@ def entry_page(request):
         entry_comment = EntryComments.objects.filter(commented_entry__entry_name=searched_entry).order_by('-created_at')
         all_entries = Entry.objects.all()
 
-        if not entry_found:
-            
-            entry_name = searched_entry
+    
+    if 'new_comment_searched_entry' in request.POST:
+        searched_entry = 'Türkiye tatil önerileri'
 
-            new_entry = Entry.objects.create(entry_name=entry_name, user=request.user)
-            new_entry.save()
+        entry_detail = get_object_or_404(Entry, entry_name=searched_entry)
 
-            # comment_body = request.POST['comment_body']
+        comment_body = request.POST['comment_body']
+        new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
+        new_comment.save()
 
-            # new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
-            # new_comment.save()
+    # if not entry_found:
+        
+    #     entry_name = searched_entry
 
-        context = {
-            "entry_found" :  entry_found,
-            'searched_entry' : searched_entry,
-            'entry_comment' : entry_comment,
-            "all_entries" :all_entries
-        }
+    #     new_entry = Entry.objects.create(entry_name=entry_name, user=request.user)
+    #     new_entry.save()
 
-        return render(request, "entry_page.html", context)
+    #     # comment_body = request.POST['comment_body']
 
-    else:
-        all_entries = Entry.objects.all()
+    #     # new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
+    #     # new_comment.save()
 
-        context = {
-            "entry_found" :  entry_found,
-            "all_entries" :all_entries
-        }
-        return render(request, "entry_page.html", context)
+    context = {
+        'searched_entry' : searched_entry,
+        "entry_found" :  entry_found,
+        'entry_comment' : entry_comment,
+        "all_entries" :all_entries
+    }
 
+    return render(request, "entry_page.html", context)
 
 
 ############
@@ -65,7 +66,6 @@ def entry_detail(request, pk):
         new_comment.save()
 
  
-
     context = {
         'entry_detail' : entry_detail,
         "all_entries" :  all_entries,
@@ -75,3 +75,26 @@ def entry_detail(request, pk):
 
     return render(request, "entry_detail.html",context )
 
+############
+
+
+def enternewentry(request):
+
+    all_entries = Entry.objects.all()
+    searched_entry = request.POST['searched_entry']
+
+    if request.method == "POST":
+
+        entry_name = searched_entry
+
+        new_entry = Entry.objects.create(entry_name=entry_name, user=request.user)
+        new_entry.save()
+
+   
+    context = {
+
+        "all_entries" :  all_entries,
+        "searched_entry" :searched_entry
+    }
+    
+    return render(request, "entry_not_found.html", context)
