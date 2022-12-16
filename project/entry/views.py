@@ -12,17 +12,31 @@ def entry_page(request):
         entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
 
         entry_comment = EntryComments.objects.filter(commented_entry__entry_name=searched_entry).order_by('-created_at')
+    
+        searched_entry = request.POST['searched_entry']
+
+        entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
         all_entries = Entry.objects.all()
 
+        print(searched_entry)
     
     if 'new_comment_searched_entry' in request.POST:
         searched_entry = 'Türkiye tatil önerileri'
 
         entry_detail = get_object_or_404(Entry, entry_name=searched_entry)
 
+        #add comment if new_comment_searched_entry in request.POST:
+ 
         comment_body = request.POST['comment_body']
         new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
         new_comment.save()
+
+        #show datas if new_comment_searched_entry in request.POST:
+
+        entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
+        all_entries = Entry.objects.all()
+        entry_comment = EntryComments.objects.filter(commented_entry__entry_name=searched_entry).order_by('-created_at')
+
 
     # if not entry_found:
         
