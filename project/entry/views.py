@@ -5,26 +5,23 @@ from .models import *
 
 def entry_page(request):
 
-    if 'search_entry_again' in request.POST:
-        
+    if 'search_entry_button' in request.POST:
+
+        global searched_entry
+
         searched_entry = request.POST['searched_entry']
 
         entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
 
         entry_comment = EntryComments.objects.filter(commented_entry__entry_name=searched_entry).order_by('-created_at')
     
-        searched_entry = request.POST['searched_entry']
-
-        entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
         all_entries = Entry.objects.all()
 
-        print(searched_entry)
     
-    if 'new_comment_searched_entry' in request.POST:
-        searched_entry = 'Türkiye tatil önerileri'
+    if 'new_comment_searched_entry_button' in request.POST:
 
         entry_detail = get_object_or_404(Entry, entry_name=searched_entry)
-
+    
         #add comment if new_comment_searched_entry in request.POST:
  
         comment_body = request.POST['comment_body']
