@@ -35,7 +35,7 @@ def login(request):
             messages.error(request, "Invalid login informations")
             return redirect("login")
 
-
+    
     return render(request, "login.html")
 
 
@@ -47,7 +47,10 @@ def register(request):
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
+            password = form.cleaned_data['password']
+            user = form.save(commit=False)
+            user.set_password(password)
+            user.save()
             return redirect('login')
         else:
             print(form.errors)

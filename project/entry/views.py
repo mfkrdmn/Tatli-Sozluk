@@ -73,7 +73,6 @@ def entry_page(request):
 
     return render(request, "entry_page.html", context)
 
-
 ############
 
 def entry_detail(request, pk):
@@ -89,11 +88,12 @@ def entry_detail(request, pk):
     
     if request.method == "POST":
         comment_body = request.POST['comment_body']
-
         new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
         new_comment.save()
 
- 
+#  farklı hesaptan entyr e yorum  yazıldığında user ı request.user yapmam lazım yoksa direk Entrynin user ını algığı için
+#  entry i kim açtıysa onun ismiyle gçsteriyor yorumları
+
     context = {
         'entry_detail' : entry_detail,
         "all_entries" :  all_entries,
@@ -101,5 +101,5 @@ def entry_detail(request, pk):
         'entry_comment' :entry_comment,
     }
 
-    return render(request, "entry_detail.html",context )
+    return render(request, "entry_detail.html",context)
 
