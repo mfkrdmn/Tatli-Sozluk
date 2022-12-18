@@ -55,21 +55,19 @@
           
     {% else %}
     
-        <div class="col-lg-6 p-5 ">
+        <div class="col-lg-6 ">
             <div class="row">
-            <form action="" method="get">
+            <form action="" method="POST">
                 {% csrf_token %}
                 <div class="col-lg-12">
-                    <b>{{searched_entry}}</b>
+
+                    <b>'{{searched_entry}}'</b>
                     <span>diye birşey bulunamadı</span><br><br>
-                    <h4>Yeni entry gireceksen aşağıdan yolla </h4><br><br><br>
+                    <h4>'{{searched_entry}}' yeni bir entry olarak açılsın mı? </h4><br>
 
-                    <br>    
+                    <button name="new_entry_not_in_database" type="submit" class="btn btn-primary">Gönder gitsin</button>
+                    <button type="submit" name="not_today_button" class="btn btn-danger">Şimdilik kalsın</button>
 
-                    <b>{{searched_entry}} </b><label for="w3review"> hakkında bize biraz bilgi ver:</label> <br><br>
-                    <textarea id="w3review" name="w3review" rows="4" cols="50"></textarea>
-                    <br>
-                    <input type="submit" value="Submit">
                 </div>
             </form>
             </div>

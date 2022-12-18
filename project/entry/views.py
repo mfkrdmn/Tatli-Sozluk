@@ -11,41 +11,58 @@ def entry_page(request):
 
         searched_entry = request.POST['searched_entry']
 
+        global entry_found
+
         entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
+
+        global entry_comment
 
         entry_comment = EntryComments.objects.filter(commented_entry__entry_name=searched_entry).order_by('-created_at')
     
+        global all_entries
+
         all_entries = Entry.objects.all()
 
-    
-    if 'new_comment_searched_entry_button' in request.POST:
 
-        entry_detail = get_object_or_404(Entry, entry_name=searched_entry)
-    
-        #add comment if new_comment_searched_entry in request.POST:
- 
-        comment_body = request.POST['comment_body']
-        new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
-        new_comment.save()
+    if  entry_found:
 
-        #show datas if new_comment_searched_entry in request.POST:
+        if 'new_comment_searched_entry_button' in request.POST:
 
-        entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
-        all_entries = Entry.objects.all()
-        entry_comment = EntryComments.objects.filter(commented_entry__entry_name=searched_entry).order_by('-created_at')
-
-
-    # if not entry_found:
+            entry_detail = get_object_or_404(Entry, entry_name=searched_entry)
         
-    #     entry_name = searched_entry
+            #add comment if new_comment_searched_entry in request.POST:
+    
+            comment_body = request.POST['comment_body']
+            new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
+            new_comment.save()
 
-    #     new_entry = Entry.objects.create(entry_name=entry_name, user=request.user)
-    #     new_entry.save()
+            #show datas if new_comment_searched_entry in request.POST:
 
-    #     # comment_body = request.POST['comment_body']
+            entry_found = Entry.objects.filter(entry_name__contains=searched_entry)
+            all_entries = Entry.objects.all()
+            entry_comment = EntryComments.objects.filter(commented_entry__entry_name=searched_entry).order_by('-created_at')
 
-    #     # new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
-    #     # new_comment.save()
+    else:
+
+        if 'new_entry_not_in_database' in request.POST:
+            entry_name = searched_entry
+            new_entry = Entry.objects.create(entry_name=entry_name, user=request.user)
+            new_entry.save()
+            entry_found = entry_name
+            all_entries = Entry.objects.all()
+
+            context = {
+                'searched_entry' : searched_entry,
+                "entry_found" :  entry_found,
+                'entry_comment' : entry_comment,
+                "all_entries" :all_entries
+            }
+
+            return render(request, "entry_page.html", context)
+
+        if 'not_today_button' in request.POST:
+            return redirect("home")
+            
 
     context = {
         'searched_entry' : searched_entry,
@@ -86,26 +103,3 @@ def entry_detail(request, pk):
 
     return render(request, "entry_detail.html",context )
 
-############
-
-
-def enternewentry(request):
-
-    all_entries = Entry.objects.all()
-    searched_entry = request.POST['searched_entry']
-
-    if request.method == "POST":
-
-        entry_name = searched_entry
-
-        new_entry = Entry.objects.create(entry_name=entry_name, user=request.user)
-        new_entry.save()
-
-   
-    context = {
-
-        "all_entries" :  all_entries,
-        "searched_entry" :searched_entry
-    }
-    
-    return render(request, "entry_not_found.html", context)
