@@ -88,7 +88,7 @@ def entry_detail(request, pk):
     
     if request.method == "POST":
         comment_body = request.POST['comment_body']
-        new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
+        new_comment = EntryComments.objects.create(commented_entry=entry_detail,writer=request.user, comment_body=comment_body)
         new_comment.save()
 
 #  farklı hesaptan entyr e yorum  yazıldığında user ı request.user yapmam lazım yoksa direk Entrynin user ını algığı için
