@@ -33,7 +33,7 @@ def entry_page(request):
             #add comment if new_comment_searched_entry in request.POST:
     
             comment_body = request.POST['comment_body']
-            new_comment = EntryComments.objects.create(commented_entry=entry_detail, comment_body=comment_body)
+            new_comment = EntryComments.objects.create(commented_entry=entry_detail,writer=request.user, comment_body=comment_body)
             new_comment.save()
 
             #show datas if new_comment_searched_entry in request.POST:
@@ -91,8 +91,6 @@ def entry_detail(request, pk):
         new_comment = EntryComments.objects.create(commented_entry=entry_detail,writer=request.user, comment_body=comment_body)
         new_comment.save()
 
-#  farklı hesaptan entyr e yorum  yazıldığında user ı request.user yapmam lazım yoksa direk Entrynin user ını algığı için
-#  entry i kim açtıysa onun ismiyle gçsteriyor yorumları
 
     context = {
         'entry_detail' : entry_detail,
