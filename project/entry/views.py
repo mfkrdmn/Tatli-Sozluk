@@ -85,7 +85,13 @@ def entry_detail(request, pk):
 
     entry_comment = EntryComments.objects.filter(commented_entry__entry_name=pk).order_by('-created_at')
 
-    
+    #burada isin entry_comment ile. Eger sayfada entry_comment in user i coktan varsa coktan var yazacak
+
+    posted_entry_already = EntryComments.objects.filter(commented_entry__user=request.user)
+
+    for i in entry_comment:
+        print(i.writer.username)
+
     if request.method == "POST":
         comment_body = request.POST['comment_body']
         new_comment = EntryComments.objects.create(commented_entry=entry_detail,writer=request.user, comment_body=comment_body)
@@ -96,7 +102,8 @@ def entry_detail(request, pk):
         'entry_detail' : entry_detail,
         "all_entries" :  all_entries,
         'bring_entry_info' : bring_entry_info,
-        'entry_comment' :entry_comment,
+        'entry_comment' : entry_comment,
+        'posted_entry_already' : posted_entry_already,
     }
 
     return render(request, "entry_detail.html",context)

@@ -5,10 +5,16 @@ from entry.models import *
 # Create your views here.
 
 def user_page(request):
-    entries = Entry.objects.all()
+    all_entries = Entry.objects.all()
+
+    my_entries = EntryComments.objects.filter(commented_entry__user=request.user,writer=request.user)
+
+    count_datas = my_entries.count()
 
     context = {
-        'entries' : entries
+        'all_entries' : all_entries,
+        'my_entries' : my_entries,
+        'count_datas' : count_datas
     }
     return render(request, 'user_page.html', context)
 
