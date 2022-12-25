@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="col-lg-9 border border-2 p-4">
+    <div class="row justify-content-between">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>{{request.user.username}}</h4>
+                </div>
+                <div class="col-lg-12">
+                    <button class="btn" style="background-color: rgb(255, 138, 4) ;"> çaylak</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 text-end">
+                <img class="img-fluid w-25" src="{% static 'images/user.png' %}" alt="">
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-12">
+            <span> <b>{{count_datas}}</b> entry</span>
+            <a href="" style="color: black !important;">  <span> <b>0</b> takipçi</span></a>
+            <a href="" style="color: black !important;">  <span> <b>0</b> takip</span> </a>
+        </div>
+        <div class="col-lg-12 mt-3 pp_icons_div">
+            <div class="circle_profile_icons me-3">
+                <i class="fa-solid fa-arrow-up-from-bracket pp_circle_icons_itself"></i>
+            </div>
+            <div class="circle_profile_icons">
+                <i class="fa-solid fa-ellipsis pp_circle_icons_itself"></i>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-12">
+            <tr>
+                <a href="{% url 'user_page' %}" class="p_ullis"> <td >entry'ler</li></a>
+                <a href="" class="p_ullis"> <td >Beğendiğim yorumlar</li></a>
+                <a href="" class="p_ullis"> <td >görsel</li></a>
+                <a href="" class="p_ullis"> <td >istatistikler <i class="fa-solid fa-sort-down "></i></li></a>
+            </tr>
+        </div>
+    </div>
+    <hr>
+
+    {% for i in my_entries %}
+    <div class="col-lg-12 ">
+        <div class="row mt-3">
+            <div class="col-lg-12 ">
+                <h5>
+                    <a href="">{{i.commented_entry}}</a>
+                </h5>
+            </div>
+            <div class="col-lg-12 mt-3">
+                <span>
+                    {{i.comment_body}}
+                </span>
+            </div>
+            <div class="col-lg-12 mt-2">
+                <div class="row justify-content-between">
+                    <div class="col-lg-3">
+                        <div class="row">
+                            <div class="col-lg-1">
+                                <i class="fa-solid fa-cookie-bite"style="font-size:15px ;"></i>
+                            </div>
+                            <div class="col-lg-1">
+                                <span>33</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="row justify-content-start">
+                            <div class="col-lg-1">
+                                <i class="fa-solid fa-up-right-from-square"></i>
+                            </div>
+                            <div class="col-lg-1 ">
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 mt-2">
+                <div class="row justify-content-end">
+                    <div class="col-lg-2 text-end">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a href=""> {{i.writer.username}}</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <span>{{i.commented_entry.created_at}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <a href="">
+                            <img class="img-fluid w-100" src="{% static 'images/user.png' %}" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+
+
+{% endblock %}

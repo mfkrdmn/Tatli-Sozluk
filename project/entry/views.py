@@ -86,12 +86,15 @@ def entry_detail(request, pk):
     entry_comment = EntryComments.objects.filter(commented_entry__entry_name=pk).order_by('-created_at')
 
     #burada isin entry_comment ile. Eger sayfada entry_comment in user i coktan varsa coktan var yazacak
+    #first of kullanarak template de sorgu yapabiliriz ancak burada bir üstteki variable ın oluşturulması lazım önce
 
-    posted_entry_already = EntryComments.objects.filter(commented_entry__user=request.user)
+    for i in entry_comment:
+        tiklanan_posta_yorum_yapanlar = i.writer.username
+        print(tiklanan_posta_yorum_yapanlar)
 
-    # for i in entry_comment:
-    #     a = i.writer.username
-    #     print(a)
+    user = request.user.username
+    print(user)
+
 
     if request.method == "POST":
         comment_body = request.POST['comment_body']
@@ -104,7 +107,8 @@ def entry_detail(request, pk):
         "all_entries" :  all_entries,
         'bring_entry_info' : bring_entry_info,
         'entry_comment' : entry_comment,
-        'posted_entry_already' : posted_entry_already,
+        "tiklanan_posta_yorum_yapanlar" : tiklanan_posta_yorum_yapanlar,
+        'user' : user
     }
 
     return render(request, "entry_detail.html",context)

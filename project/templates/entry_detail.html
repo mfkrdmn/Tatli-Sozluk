@@ -53,18 +53,17 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="col-lg-12">
-                    <b>{{searched_entry}}</b><br><br><br><br>
+                    <b>{{searched_entry}}</b><br><br><br><br> 
+                    {% if user in tiklanan_posta_yorum_yapanlar %} 
+                    <span>Bu entry'e yorum yaptın. Yorumunu görüntülemek için <a href="{% url 'user_page' %}">tıkla</a></span>
+                    {% else %}
                     <h4>Sende yorumunu paylaş </h4>
-                     <br>
-<input placeholder="{{searched_entry}}hakkında bize biraz bilgi ver" name="comment_body" style="height:180px; width: 500px;"></input>{{form.comment_body}}
                     <br>
-                    {% for a in entry_comment %}
-                        {% if a.writer.username == request.user.username %}
-                        çoktan yorum yaptın
-                        {% else %}
-                        <input type="submit" value="Submit">
-                        {% endif %}
-                    {% endfor %}    
+                    <input placeholder="{{searched_entry}}hakkında bize biraz bilgi ver" name="comment_body" style="height:180px; width: 500px;"></input>{{form.comment_body}}
+                   <br>
+                    <input type="submit" value="Submit">
+                    {% endif %}
+
                     <br>
                     <br>
                     <br>                   
