@@ -78,7 +78,6 @@ def entry_page(request):
 def entry_detail(request, pk):
 
     all_entries = Entry.objects.all()
-    all_entries = Entry.objects.all()
 
     entry_detail = get_object_or_404(Entry, entry_name=pk)
 
