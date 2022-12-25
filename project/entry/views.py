@@ -89,8 +89,9 @@ def entry_detail(request, pk):
 
     posted_entry_already = EntryComments.objects.filter(commented_entry__user=request.user)
 
-    for i in entry_comment:
-        print(i.writer.username)
+    # for i in entry_comment:
+    #     a = i.writer.username
+    #     print(a)
 
     if request.method == "POST":
         comment_body = request.POST['comment_body']

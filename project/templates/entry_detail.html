@@ -59,7 +59,7 @@
 <input placeholder="{{searched_entry}}hakkında bize biraz bilgi ver" name="comment_body" style="height:180px; width: 500px;"></input>{{form.comment_body}}
                     <br>
                     {% for a in entry_comment %}
-                        {% if a.writer.username == "fatma" %}
+                        {% if a.writer.username == request.user.username %}
                         çoktan yorum yaptın
                         {% else %}
                         <input type="submit" value="Submit">
