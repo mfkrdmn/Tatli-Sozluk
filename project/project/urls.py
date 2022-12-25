@@ -24,5 +24,6 @@ urlpatterns = [
     path('', include('user.urls')),
     path('projectflow', views.project_flow, name='projectflow'),
     path('', include('entry.urls')),
+    path('', include('likes_follows.urls')),
 
 ]

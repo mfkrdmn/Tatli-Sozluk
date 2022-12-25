@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'homepage',
     'user',
     'entry',
+    'likes_follows'
 ]
 
 MIDDLEWARE = [
